@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>74 Days to Feel Good — Glow Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<noscript>
+  <div style="max-width:1240px;margin:14px auto 0;padding:0 22px">
+    <div style="background:#fff4e7;border:1px solid #eadde2;border-radius:18px;padding:14px;color:#4c3b42">
+      <strong>Preview mode:</strong> Your phone is showing the non-interactive version. The checklist, Today’s Words, and weekly calendar are still visible, but saving, analytics, and date switching need JavaScript in Safari/Chrome.
+    </div>
+  </div>
+</noscript>
+<div class="wrap">
+<section class="hero">
+  <div class="eyebrow">soft discipline • halloween edition ✿</div>
+  <h1>74 Days to Feel Good</h1>
+  <div class="sub">A nourishing, data-loving glow-up dashboard for movement, strength, running, food, faith, skin, digestion, sleep, and feeling more like yourself.</div>
+  <div class="sparkle-row">
+    <span class="charm pink">♡ soft discipline</span>
+    <span class="charm blue">☁ wellness era</span>
+    <span class="charm lilac">✦ glow inside + out</span>
+  </div><div class="small" style="margin-top:8px">Mobile tip: if the ChatGPT preview looks static, open this HTML file in Safari/Chrome for saving, charts, streaks, and interactive tracking.</div>
+  <div class="hero-row">
+    <input id="datePicker" type="date" style="max-width:205px">
+    <span class="pill" id="dayLabel">Day 1 of 74</span>
+    <span class="pill" id="streakLabel">0 day streak</span>
+  </div>
+  <div class="countdown">
+    <div><strong id="daysLeft">74</strong><span class="small">days left</span></div>
+    <div><strong id="overallPct">0%</strong><span class="small">overall consistency</span></div>
+    <div><strong id="moveTotal">0</strong><span class="small">movement minutes</span></div>
+  </div>
+</section>
+
+<main class="grid">
+<section class="card wide app-section" data-tab="today">
+  <div class="topline"><div><h2>Daily Glow Checklist</h2><div class="small">These are your anchors — no restarting if a day is messy.</div></div><span class="pill" id="checkCount">0 / 10</span></div>
+  <div class="checks" id="checklist">
+  <label class="check"><input type="checkbox" data-check="0"><span>AM skincare + SPF</span></label>
+  <label class="check"><input type="checkbox" data-check="1"><span>PM skincare</span></label>
+  <label class="check"><input type="checkbox" data-check="2"><span>Bible study</span></label>
+  <label class="check"><input type="checkbox" data-check="3"><span>Intentional movement</span></label>
+  <label class="check"><input type="checkbox" data-check="4"><span>Nourishing meals</span></label>
+  <label class="check"><input type="checkbox" data-check="5"><span>Take fiber supplement</span></label>
+  <label class="check"><input type="checkbox" data-check="6"><span>Hydration focus</span></label>
+  <label class="check"><input type="checkbox" data-check="7"><span>10-minute tidy / reset</span></label>
+  <label class="check"><input type="checkbox" data-check="8"><span>Kind self-talk</span></label>
+  <label class="check"><input type="checkbox" data-check="9"><span>Work goal / priority tasks</span></label>
+</div><div class="progress"><div class="bar" id="progressBar"></div></div>
+<div class="section-doodle">🎀</div></section>
+
+<section class="card app-section" data-tab="today">
+  <h2>Mood + Energy</h2><div class="small">A tiny emotional data point every day.</div>
+  <div class="moods" id="moods"></div>
+  <div class="label" style="margin-top:12px">Energy 1–5</div><select id="energy"><option value="">Choose...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+  <div class="label" style="margin-top:10px">Notes</div><textarea id="moodNote" rows="3" placeholder="How are you, really?"></textarea>
+<div class="section-doodle">☁️</div></section>
+
+<section class="card app-section" data-tab="today">
+  <h2>Today's Words</h2>
+  <div class="label" style="margin-top:10px">Quote</div><div class="quote" id="quote">You do not need a perfect day to build a beautiful life.</div>
+  <div class="label" style="margin-top:10px">Verse / prayer</div><div class="quote" id="verse">“I can do all things through Christ who strengthens me.” — Philippians 4:13</div>
+  <div class="label" style="margin-top:10px">Mirror affirmation</div><div class="quote" id="affirmation">I take care of myself because I am worth caring for.</div>
+<div class="section-doodle">✿</div></section>
+
+<section class="card wide app-section" data-tab="food">
+  <div class="topline">
+    <div><h2>Food + Nourishment</h2><div class="small">Calories are optional estimates for information only — there is no daily calorie target or “good/bad” score here.</div></div>
+    <label class="toggle small"><input id="showCalories" type="checkbox"> show calorie estimates</label>
+  </div>
+  <div class="three">
+    <select id="mealType"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select>
+    <select id="foodPreset"><option value="">Quick-add a common food...</option></select>
+    <input id="servings" type="number" min=".25" step=".25" value="1" placeholder="Servings">
+  </div>
+  <div class="two" style="margin-top:9px">
+    <input id="mealText" type="text" placeholder="Meal / food description">
+    <input id="caloriesInput" type="number" min="0" placeholder="Calories (optional / override)">
+  </div>
+  <div class="three" style="margin-top:9px">
+    <input id="proteinGrams" type="number" min="0" placeholder="Protein g (optional)">
+    <input id="fiberGrams" type="number" min="0" placeholder="Food fiber g (optional)">
+    <select id="wholeFood"><option value="">Whole-food focus?</option><option>Mostly whole foods</option><option>Mixed</option><option>Just for joy</option></select>
+  </div>
+  <button class="btn" onclick="addMeal()">Add food</button>
+  <div class="log" id="mealList"></div>
+  <div class="metrics">
+    <div class="metric calorieOnly"><strong id="calTotal">0</strong><span class="small">estimated calories</span></div>
+    <div class="metric"><strong id="proteinTotal">0g</strong><span class="small">protein logged</span></div>
+    <div class="metric"><strong id="foodFiberTotal">0g</strong><span class="small">food fiber</span></div>
+    <div class="metric"><strong id="wholeCount">0</strong><span class="small">whole-food meals</span></div>
+  </div>
+<div class="section-doodle">🩰</div></section>
+
+<section class="card app-section" data-tab="movement">
+  <h2>Movement Log</h2><div class="small">Use this for progression — especially running, Pilates and upper-body strength.</div>
+  <div class="label" style="margin-top:10px">Type</div>
+  <select id="exerciseType"><option>Pilates</option><option>Run / Walk</option><option>Upper Body Weights</option><option>Long Walk</option><option>Mobility / Recovery</option><option>Other</option></select>
+  <div class="two" style="margin-top:9px"><input id="exerciseMinutes" type="number" min="0" placeholder="Minutes"><input id="distance" type="number" min="0" step=".01" placeholder="Miles (optional)"></div>
+  <div class="two" style="margin-top:9px"><input id="rpe" type="number" min="1" max="10" placeholder="Effort 1–10"><input id="exerciseNotes" type="text" placeholder="How did it feel?"></div>
+  <button class="btn" onclick="addExercise()">Add movement</button><div class="log" id="exerciseList"></div>
+</section>
+
+<section class="card app-section" data-tab="today">
+  <h2>Work + Future Me</h2>
+  <div class="small">One meaningful career or productivity win is enough.</div>
+  <div class="label" style="margin-top:10px">Today's main goal</div>
+  <input id="workGoal" type="text" placeholder="Apply to a role, finish priority tasks, update resume...">
+  <div class="label" style="margin-top:10px">What I completed</div>
+  <textarea id="workWin" rows="3" placeholder="What moved forward today?"></textarea>
+<div class="section-doodle">💻</div></section>
+
+<section class="card app-section" data-tab="today">
+  <h2>Sleep + Body</h2>
+  <div class="two" style="margin-top:10px"><input id="sleepHours" type="number" min="0" max="14" step=".25" placeholder="Hours slept"><input id="wakeTime" type="text" placeholder="Wake time"></div>
+  <div class="label" style="margin-top:10px">Sleep quality</div><select id="sleepQuality"><option value="">Choose...</option><option>Great</option><option>Good</option><option>Okay</option><option>Restless</option><option>Poor</option></select>
+  <div class="label" style="margin-top:10px">Digestion</div><textarea id="digestion" rows="3" placeholder="Comfort, bloating, bowel movement, what helped..."></textarea>
+</section>
+
+<section class="card full app-section" data-tab="today">
+  <div class="topline">
+    <div><h2>Weekly Home Reset</h2><div class="small">A gentle rhythm for keeping home life from piling up.</div></div>
+    <span class="pill" id="homeCount">0 / 7</span>
+  </div>
+  <div class="checks" id="homeChecklist">
+    <label class="check"><input type="checkbox" data-home="laundry"><span>Laundry</span></label>
+    <label class="check"><input type="checkbox" data-home="bed"><span>Make / refresh bed</span></label>
+    <label class="check"><input type="checkbox" data-home="litterMon"><span>Monday night litter clean</span></label>
+    <label class="check"><input type="checkbox" data-home="litterThu"><span>Thursday night litter clean</span></label>
+    <label class="check"><input type="checkbox" data-home="downstairs1"><span>Downstairs tidy #1</span></label>
+    <label class="check"><input type="checkbox" data-home="downstairs2"><span>Downstairs tidy #2 — bonus</span></label>
+    <label class="check"><input type="checkbox" data-home="roomReset"><span>Weekly bedroom refresh clean</span></label>
+  </div>
+  <div class="progress"><div class="bar" id="homeProgress"></div></div>
+</section>
+
+<section class="card full app-section" data-tab="today">
+  <div class="topline"><div><h2>Weekly View</h2><div class="small">Tap any day to jump to it.</div></div><span class="pill" id="weekRange">Aug 17 – Aug 23</span></div>
+  <div class="week" id="weekView"><div class="day" data-static-date="2026-08-17"><div class="small">Mon</div><div class="num">17</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day active" data-static-date="2026-08-18"><div class="small">Tue</div><div class="num">18</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day" data-static-date="2026-08-19"><div class="small">Wed</div><div class="num">19</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day" data-static-date="2026-08-20"><div class="small">Thu</div><div class="num">20</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day" data-static-date="2026-08-21"><div class="small">Fri</div><div class="num">21</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day" data-static-date="2026-08-22"><div class="small">Sat</div><div class="num">22</div><div class="small"><span class="dot low"></span>0%</div></div><div class="day" data-static-date="2026-08-23"><div class="small">Sun</div><div class="num">23</div><div class="small"><span class="dot low"></span>0%</div></div></div>
+</section>
+
+<section class="card full app-section" data-tab="analytics">
+  <div class="topline"><div><h2>Analytics Dashboard</h2><div class="small">Your trends across the challenge — for the part of you that loves numbers.</div></div><span class="pill">auto-updates</span></div>
+  <div class="metrics">
+    <div class="metric"><strong id="avgMood">—</strong><span class="small">avg mood / 5</span></div>
+    <div class="metric"><strong id="avgSleep">—</strong><span class="small">avg sleep hours</span></div>
+    <div class="metric"><strong id="runMiles">0</strong><span class="small">run/walk miles</span></div>
+    <div class="metric"><strong id="fiberDays">0</strong><span class="small">fiber supplement days</span></div>
+  </div>
+  <div class="two">
+    <div class="chartbox"><div class="small"><b>Consistency — last 14 days</b></div><svg id="consistencyChart" viewBox="0 0 600 190"></svg></div>
+    <div class="chartbox"><div class="small"><b>Movement minutes — last 14 days</b></div><svg id="movementChart" viewBox="0 0 600 190"></svg></div>
+  </div>
+  <div class="two">
+    <div class="chartbox"><div class="small"><b>Running progression — weekly miles</b></div><svg id="runningChart" viewBox="0 0 600 190"></svg></div>
+    <div class="chartbox"><div class="small"><b>Mood trend — last 14 days</b></div><svg id="moodChart" viewBox="0 0 600 190"></svg></div>
+  </div>
+</section>
+
+<section class="card half app-section" data-tab="food">
+  <h2>Tomorrow's Easy Meal Plan</h2>
+  <div class="small">Generated from today's movement so recovery is one less thing to think about.</div>
+  <div class="plan" id="mealPlan"></div>
+  <button class="btn sage" onclick="generatePlan()">Refresh plan</button>
+</section>
+
+<section class="card half app-section" data-tab="recipes">
+  <h2>Your Simple Meal Rotation</h2>
+  <div class="small">Eight repeatable meals. The goal is nourishing autopilot, not culinary Olympics.</div>
+  <div class="recipe-grid" id="recipeGrid" style="margin-top:10px"></div>
+</section>
+
+<section class="card full app-section" data-tab="today">
+  <h2>Evening Reflection</h2>
+  <div class="two" style="margin-top:10px">
+    <div><div class="label">Today I’m proud of...</div><textarea id="proud" rows="4" placeholder="Small wins count."></textarea></div>
+    <div><div class="label">Tomorrow I want to...</div><textarea id="tomorrow" rows="4" placeholder="One gentle intention."></textarea></div>
+  </div>
+</section>
+</main>
+<div class="footer">74 Days to Feel Good ✿ data for insight, not judgment.</div>
+</div>
+
+<script src="app.js"></script>
+
+<nav class="bottom-nav" aria-label="Wellness navigation">
+  <button class="nav-btn active" data-nav="today"><span class="ico">♡</span><span>Today</span></button>
+  <button class="nav-btn" data-nav="food"><span class="ico">🥣</span><span>Food</span></button>
+  <button class="nav-btn" data-nav="movement"><span class="ico">✦</span><span>Move</span></button>
+  <button class="nav-btn" data-nav="analytics"><span class="ico">⌁</span><span>Stats</span></button>
+  <button class="nav-btn" data-nav="recipes"><span class="ico">⌂</span><span>Recipes</span></button>
+</nav>
+
+</body>
+</html>
